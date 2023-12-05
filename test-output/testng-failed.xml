@@ -7,7 +7,14 @@
         <methods>
           <include name="configurationChangeByDropdown"/>
           <include name="TearDown"/>
+          <include name="checkPreview300_600"/>
+          <include name="checkPreview250_250"/>
+          <include name="checkPreviewAfterEdit"/>
           <include name="launchApplication"/>
+          <include name="checkPreview800_250"/>
+          <include name="checkPreview160_600"/>
+          <include name="checkPreview300_250"/>
+          <include name="checkPreview728_90"/>
         </methods>
       </class> <!-- Think.ihk_test.displayBannerCreativePreview -->
     </classes>

@@ -16,87 +16,452 @@ import Think.ihk_testcomponent.BaseTest;
 public class displayBannerCreativePreview extends BaseTest {
 	SoftAssert softAssert = new SoftAssert();
 
+	static final String sun = "https://s3.eu-central-1.amazonaws.com/ads.ihk-stage/assets/themes/sun.jpg";
+	static final String hibiscus = "https://s3.eu-central-1.amazonaws.com/ads.ihk-stage/assets/themes/hibiscus.jpg";
+	static final String lime = "https://s3.eu-central-1.amazonaws.com/ads.ihk-stage/assets/themes/lime.jpg";
+	static final String mauve = "https://s3.eu-central-1.amazonaws.com/ads.ihk-stage/assets/themes/mauve.jpg";
+	static final String mandarin = "https://s3.eu-central-1.amazonaws.com/ads.ihk-stage/assets/themes/mandarin.jpg";
+
+	public static final String[] bgArray = { sun, hibiscus, lime, mauve, mandarin };
+
+
+	
+	@DisplayName("verify that 300*600 image should visible")
 	@Test
-	public void $300By600() throws InterruptedException {
+	public void checkPreview300_600() throws InterruptedException {
 		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
 		module.clickToolBox();
 		displayBanner.clickOnDisplayBanner();
 		displayBanner.zuDenButton.get(0).click();
-		displayBanner.ceativeListVorschauBtn.get(1).click(); // view the first item from the list
-//		Thread.sleep(2000);
-//		displayBanner.creativePreviewDropdownBtn.click();
-//		Thread.sleep(2000);
+		displayBanner.ceativeListVorschauBtn.get(0).click(); // view the first item from the list
 
-		displayBanner.editPreviewBtn.click(); // edit click
+		landingpage.waitForElementToAppear(By.xpath("(//input[@role='combobox'])[1]"));
+		displayBanner.editPreviewBtn.click();// click on the edit preview button
+		
+		// Step 1: Declare an array
+		String[] editPreviewArray = new String[6];
+		String farbValue = displayBanner.farb.getAttribute("value");
 
-		driver.findElement(By.xpath("(//input[@role='combobox'])[2]")).click(); // click on farb dropdown
-		driver.findElement(By.xpath("//li[@role='option'][2]")).click(); // click on second option
-		System.out.println(
-				"value : " + driver.findElement(By.xpath("(//input[@role='combobox'])[2]")).getAttribute("value")); // value
+		if (farbValue.equals("sun")) {
+			editPreviewArray[4] = bgArray[0];
 
-		Thread.sleep(2000);
+		} else if (farbValue.equals("hibiscus")) {
+			editPreviewArray[4] = bgArray[1];
 
-		driver.findElement(By.xpath("(//input[@role='combobox'])[3]")).click(); // click on headline
-		driver.findElement(By.xpath("//li[@role='option'][2]")).click(); // click on second option
+		} else if (farbValue.equals("lime")) {
+			editPreviewArray[4] = bgArray[2];
 
-		driver.findElement(By.xpath("(//input[@role='combobox'])[4]")).click(); // click on claim
-		driver.findElement(By.xpath("//li[@role='option'][1]")).click(); // click on first option
+		} else if (farbValue.equals("mauve")) {
+			editPreviewArray[4] = bgArray[3];
 
-		driver.findElement(By.xpath("(//input[@role='combobox'])[5]")).click(); // click on positioning
-		driver.findElement(By.xpath("//li[@role='option'][1]")).click(); // click on first option
+		} else if (farbValue.equals("mandarin")) {
+			editPreviewArray[4] = bgArray[4];
 
-		driver.findElement(By.xpath("(//input[@role='combobox'])[6]")).click(); // click on motif
-		driver.findElement(By.xpath("//div[@role='option'][2]")).click(); // click on second option
+		} else {
+			System.out.println("No matching background found.");
+		}
+		
+		System.out.println("editPreviewArray[4] : " + editPreviewArray[4]);
 
-		driver.findElement(By.xpath("(//input[@role='combobox'])[7]")).click(); // click on calltoaction
-		driver.findElement(By.xpath("//li[@role='option'][2]")).click(); // click on second option
+		// Step 2: Store values in the array
+		editPreviewArray[0] = displayBanner.headline.getAttribute("value");
+		editPreviewArray[1] = displayBanner.claim.getAttribute("value");
+		editPreviewArray[2] = displayBanner.positioning.getAttribute("value");
+		editPreviewArray[3] = displayBanner.motifUrl.getAttribute("src").replace("_preview", "");
+		editPreviewArray[5] = "https://s3.eu-central-1.amazonaws.com/ads.ihk-stage/assets/logo/global_v.svg";
+//        editPreviewArray[6] = displayBanner.cta.getAttribute("value");  
 
-		driver.findElement(By.xpath("//textarea[@placeholder='exit']")).sendKeys("Test");
-		Thread.sleep(4000);
-		driver.findElement(By.xpath("//button[text()='Preview']")).click(); // click on preview
-		driver.findElement(By.xpath("//button[@aria-label='creative editor schließen']")).click(); // click on close
+		displayBanner.closeBtn.click(); // click on close
 
-		// =========================================================================================================================
-		System.out.println("select : " + displayBanner.selectOption.get(2).getText());
-		System.out.println(displayBanner.creativePreview160600Img.getAttribute("src")); // get the full img url
-		Assert.assertTrue(displayBanner.creativePreview160600Img.isDisplayed());
-
-		WebElement iframeElement = driver.findElement(By.xpath(
-				"//div[@class='MuiGrid-root MuiGrid-item MuiGrid-grid-xs-auto css-1f3rkw9'][1]//iframe[@class='iframe_iframe__5BHQl']")); // Iframe
-
-		driver.switchTo().frame(iframeElement); // Switch to the iframe
+		driver.switchTo().frame(displayBanner.iframe300_600); // Switch to the iframe
 
 		landingpage.waitForElementToAppear(By.xpath("//div[@id='cta']")); // Wait for cta button to appear
-		// Now you're inside the iframe, and you can interact with its content
-		System.out.println(driver.findElement(By.xpath("//div[@id='bg']/img")).getAttribute("src")); // get bg url
-		System.out.println("HeadLinetext : " + driver.findElement(By.xpath("//div[@id='headline']")).getText()); // get
-																													// headline
-		System.out.println("Claimtext : " + driver.findElement(By.xpath("//div[@id='claim']")).getText()); // get
-																											// claimtext
-		System.out.println("Positext : " + driver.findElement(By.xpath("//div[@id='positioning']")).getText()); // get
-																												// posi
-																												// text
-		System.out.println("cta : " + driver.findElement(By.xpath("//div[@id='cta']/img")).getAttribute("src")); // get
-																													// cta
-																													// url
-		System.out.println("logo : " + driver.findElement(By.xpath("//div[@id='logo']/img")).getAttribute("src")); // get
-																													// logo
-																													// url
-		System.out.println("motif : " + driver.findElement(By.xpath("//div[@id='motif']/img")).getAttribute("src")); // get
-																														// motif
-																														// url
 
-		Assert.assertTrue(driver.findElement(By.xpath("//body[@class='ready image']")).isDisplayed()); // Assert that
-																										// image is
-																										// fully loaded
+		// Declare an array
+		String[] actualPreviewArray = new String[6];
 
-		driver.switchTo().defaultContent();// Switch back to the default content when done with the iframe
+		// Step 2: Store values in the array
+		actualPreviewArray[0] = displayBanner.actualHeadline.getAttribute("textContent").replaceAll("-", "").trim();
+		actualPreviewArray[1] = displayBanner.actualClaim.getAttribute("textContent").trim();
+		actualPreviewArray[2] = displayBanner.actualPositioning.getAttribute("textContent").trim();
+		actualPreviewArray[3] = displayBanner.actualMotif.getAttribute("src").replace("_300x600", "");
+		actualPreviewArray[4] = displayBanner.actualBg.getAttribute("src").replace("_300x600", "");
+		actualPreviewArray[5] = driver.findElement(By.xpath("//div[@id='logo']/img")).getAttribute("src");
+//        actualPreviewArray[6] = displayBanner.actualCta.getText().replaceAll("\\s+", " ").trim(); CTA is not possible because in the cta div, we didn't have text
+
+		System.out.println("editPreviewArray : " + Arrays.toString(editPreviewArray));
+		System.out.println("actualPreviewArray : " + Arrays.toString(actualPreviewArray));
+
+		softAssert.assertEquals(actualPreviewArray, editPreviewArray);
+		softAssert.assertTrue(driver.findElement(By.xpath("//body[@class='ready image']")).isDisplayed()); // Assert image is fully loaded
+		softAssert.assertAll();																										
+
+	}
+
+	
+	@DisplayName("verify that 160*600 image should visible")
+	@Test
+	public void checkPreview160_600() throws InterruptedException {
+		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+		module.clickToolBox();
+		displayBanner.clickOnDisplayBanner();
+		displayBanner.zuDenButton.get(0).click();
+		displayBanner.ceativeListVorschauBtn.get(0).click(); // view the first item from the list
+
+		landingpage.waitForElementToAppear(By.xpath("(//input[@role='combobox'])[1]"));
+		displayBanner.editPreviewBtn.click();// click on the edit preview button
+		
+		// Step 1: Declare an array
+		String[] editPreviewArray = new String[6];
+		String farbValue = displayBanner.farb.getAttribute("value");
+
+		if (farbValue.equals("sun")) {
+			editPreviewArray[4] = bgArray[0];
+
+		} else if (farbValue.equals("hibiscus")) {
+			editPreviewArray[4] = bgArray[1];
+
+		} else if (farbValue.equals("lime")) {
+			editPreviewArray[4] = bgArray[2];
+
+		} else if (farbValue.equals("mauve")) {
+			editPreviewArray[4] = bgArray[3];
+
+		} else if (farbValue.equals("mandarin")) {
+			editPreviewArray[4] = bgArray[4];
+
+		} else {
+			System.out.println("No matching background found.");
+		}
+		
+		System.out.println("editPreviewArray[4] : " + editPreviewArray[4]);
+
+		// Step 2: Store values in the array
+		editPreviewArray[0] = displayBanner.headline.getAttribute("value");
+		editPreviewArray[1] = displayBanner.claim.getAttribute("value");
+		editPreviewArray[2] = displayBanner.positioning.getAttribute("value");
+		editPreviewArray[3] = displayBanner.motifUrl.getAttribute("src").replace("_preview", "");
+		editPreviewArray[5] = "https://s3.eu-central-1.amazonaws.com/ads.ihk-stage/assets/logo/global_v.svg";
+//        editPreviewArray[6] = displayBanner.cta.getAttribute("value");  
+
+		displayBanner.closeBtn.click(); // click on close
+
+		driver.switchTo().frame(displayBanner.iframe160_600); // Switch to the iframe
+
+		landingpage.waitForElementToAppear(By.xpath("//div[@id='cta']")); // Wait for cta button to appear
+
+		// Declare an array
+		String[] actualPreviewArray = new String[6];
+
+		// Step 2: Store values in the array
+		actualPreviewArray[0] = displayBanner.actualHeadline.getAttribute("textContent").replaceAll("-", "").trim();
+		actualPreviewArray[1] = displayBanner.actualClaim.getAttribute("textContent").trim();
+		actualPreviewArray[2] = displayBanner.actualPositioning.getAttribute("textContent").trim();
+		actualPreviewArray[3] = displayBanner.actualMotif.getAttribute("src").replace("_160x600", "");
+		actualPreviewArray[4] = displayBanner.actualBg.getAttribute("src").replace("_160x600", "");
+		actualPreviewArray[5] = driver.findElement(By.xpath("//div[@id='logo']/img")).getAttribute("src");
+//        actualPreviewArray[6] = displayBanner.actualCta.getText().replaceAll("\\s+", " ").trim(); CTA is not possible because in the cta div, we didn't have text
+
+		System.out.println("editPreviewArray : " + Arrays.toString(editPreviewArray));
+		System.out.println("actualPreviewArray : " + Arrays.toString(actualPreviewArray));
+
+		softAssert.assertEquals(actualPreviewArray, editPreviewArray);
+		softAssert.assertTrue(driver.findElement(By.xpath("//body[@class='ready image']")).isDisplayed()); // Assert image is fully loaded
+		softAssert.assertAll();																										
 
 	}
 	
 	
-	
+	@DisplayName("verify that 300*250 image should visible")
+	@Test
+	public void checkPreview300_250() throws InterruptedException {
+		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+		module.clickToolBox();
+		displayBanner.clickOnDisplayBanner();
+		displayBanner.zuDenButton.get(0).click();
+		displayBanner.ceativeListVorschauBtn.get(0).click(); // view the first item from the list
 
+		landingpage.waitForElementToAppear(By.xpath("(//input[@role='combobox'])[1]"));
+		displayBanner.editPreviewBtn.click();// click on the edit preview button
+		
+		// Step 1: Declare an array
+		String[] editPreviewArray = new String[6];
+		String farbValue = displayBanner.farb.getAttribute("value");
+
+		if (farbValue.equals("sun")) {
+			editPreviewArray[4] = bgArray[0];
+
+		} else if (farbValue.equals("hibiscus")) {
+			editPreviewArray[4] = bgArray[1];
+
+		} else if (farbValue.equals("lime")) {
+			editPreviewArray[4] = bgArray[2];
+
+		} else if (farbValue.equals("mauve")) {
+			editPreviewArray[4] = bgArray[3];
+
+		} else if (farbValue.equals("mandarin")) {
+			editPreviewArray[4] = bgArray[4];
+
+		} else {
+			System.out.println("No matching background found.");
+		}
+		
+
+		// Step 2: Store values in the array
+		editPreviewArray[0] = displayBanner.headline.getAttribute("value");
+		editPreviewArray[1] = displayBanner.claim.getAttribute("value");
+		editPreviewArray[2] = displayBanner.positioning.getAttribute("value");
+		editPreviewArray[3] = displayBanner.motifUrl.getAttribute("src").replace("_preview", "");
+		editPreviewArray[5] = "https://s3.eu-central-1.amazonaws.com/ads.ihk-stage/assets/logo/global_v.svg";
+//        editPreviewArray[6] = displayBanner.cta.getAttribute("value");  
+
+		displayBanner.closeBtn.click(); // click on close
+
+		driver.switchTo().frame(displayBanner.iframe300_250); // Switch to the iframe
+
+		landingpage.waitForElementToAppear(By.xpath("//div[@id='cta']")); // Wait for cta button to appear
+
+		// Declare an array
+		String[] actualPreviewArray = new String[6];
+
+		// Step 2: Store values in the array
+		actualPreviewArray[0] = displayBanner.actualHeadline.getAttribute("textContent").replaceAll("-", "").trim();
+		actualPreviewArray[1] = displayBanner.actualClaim.getAttribute("textContent").trim();
+		actualPreviewArray[2] = displayBanner.actualPositioning.getAttribute("textContent").trim();
+		actualPreviewArray[3] = displayBanner.actualMotif.getAttribute("src").replace("_300x250", "");
+		actualPreviewArray[4] = displayBanner.actualBg.getAttribute("src").replace("_300x250", "");
+		actualPreviewArray[5] = driver.findElement(By.xpath("//div[@id='logo']/img")).getAttribute("src");
+//        actualPreviewArray[6] = displayBanner.actualCta.getText().replaceAll("\\s+", " ").trim(); CTA is not possible because in the cta div, we didn't have text
+
+		System.out.println("editPreviewArray : " + Arrays.toString(editPreviewArray));
+		System.out.println("actualPreviewArray : " + Arrays.toString(actualPreviewArray));
+
+		softAssert.assertEquals(actualPreviewArray, editPreviewArray);
+		softAssert.assertTrue(driver.findElement(By.xpath("//body[@class='ready image']")).isDisplayed()); // Assert image is fully loaded
+		softAssert.assertAll();																										
+
+	}
+	
+	
+	@DisplayName("verify that 800*250 image should visible")
+	@Test
+	public void checkPreview800_250() throws InterruptedException {
+		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+		module.clickToolBox();
+		displayBanner.clickOnDisplayBanner();
+		displayBanner.zuDenButton.get(0).click();
+		displayBanner.ceativeListVorschauBtn.get(0).click(); // view the first item from the list
+
+		landingpage.waitForElementToAppear(By.xpath("(//input[@role='combobox'])[1]"));
+		displayBanner.editPreviewBtn.click();// click on the edit preview button
+		
+		// Step 1: Declare an array
+		String[] editPreviewArray = new String[6];
+		String farbValue = displayBanner.farb.getAttribute("value");
+
+		if (farbValue.equals("sun")) {
+			editPreviewArray[4] = bgArray[0];
+
+		} else if (farbValue.equals("hibiscus")) {
+			editPreviewArray[4] = bgArray[1];
+
+		} else if (farbValue.equals("lime")) {
+			editPreviewArray[4] = bgArray[2];
+
+		} else if (farbValue.equals("mauve")) {
+			editPreviewArray[4] = bgArray[3];
+
+		} else if (farbValue.equals("mandarin")) {
+			editPreviewArray[4] = bgArray[4];
+
+		} else {
+			System.out.println("No matching background found.");
+		}
+		
+		System.out.println("editPreviewArray[4] : " + editPreviewArray[4]);
+
+		// Step 2: Store values in the array
+		editPreviewArray[0] = displayBanner.headline.getAttribute("value");
+		editPreviewArray[1] = displayBanner.claim.getAttribute("value");
+		editPreviewArray[2] = displayBanner.positioning.getAttribute("value");
+		editPreviewArray[3] = displayBanner.motifUrl.getAttribute("src").replace("_preview", "");
+		editPreviewArray[5] = "https://s3.eu-central-1.amazonaws.com/ads.ihk-stage/assets/logo/global_v.svg";
+//        editPreviewArray[6] = displayBanner.cta.getAttribute("value");  
+
+		displayBanner.closeBtn.click(); // click on close
+
+		driver.switchTo().frame(displayBanner.iframe800_250); // Switch to the iframe
+
+		landingpage.waitForElementToAppear(By.xpath("//div[@id='cta']")); // Wait for cta button to appear
+
+		// Declare an array
+		String[] actualPreviewArray = new String[6];
+
+		// Step 2: Store values in the array
+		actualPreviewArray[0] = displayBanner.actualHeadline.getAttribute("textContent").replaceAll("-", "").trim();
+		actualPreviewArray[1] = displayBanner.actualClaim.getAttribute("textContent").trim();
+		actualPreviewArray[2] = displayBanner.actualPositioning.getAttribute("textContent").trim();
+		actualPreviewArray[3] = displayBanner.actualMotif.getAttribute("src").replace("_800x250", "");
+		actualPreviewArray[4] = displayBanner.actualBg.getAttribute("src").replace("_800x250", "");
+		actualPreviewArray[5] = driver.findElement(By.xpath("//div[@id='logo']/img")).getAttribute("src");
+//        actualPreviewArray[6] = displayBanner.actualCta.getText().replaceAll("\\s+", " ").trim(); CTA is not possible because in the cta div, we didn't have text
+
+		System.out.println("editPreviewArray : " + Arrays.toString(editPreviewArray));
+		System.out.println("actualPreviewArray : " + Arrays.toString(actualPreviewArray));
+
+		softAssert.assertEquals(actualPreviewArray, editPreviewArray);
+		softAssert.assertTrue(driver.findElement(By.xpath("//body[@class='ready image']")).isDisplayed()); // Assert image is fully loaded
+		softAssert.assertAll();																										
+
+	}
+	
+	
+	@DisplayName("verify that 250*250 image should visible")
+	@Test
+	public void checkPreview250_250() throws InterruptedException {
+		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+		module.clickToolBox();
+		displayBanner.clickOnDisplayBanner();
+		displayBanner.zuDenButton.get(0).click();
+		displayBanner.ceativeListVorschauBtn.get(0).click(); // view the first item from the list
+
+		landingpage.waitForElementToAppear(By.xpath("(//input[@role='combobox'])[1]"));
+		displayBanner.editPreviewBtn.click();// click on the edit preview button
+		
+		// Step 1: Declare an array
+		String[] editPreviewArray = new String[6];
+		String farbValue = displayBanner.farb.getAttribute("value");
+
+		if (farbValue.equals("sun")) {
+			editPreviewArray[4] = bgArray[0];
+
+		} else if (farbValue.equals("hibiscus")) {
+			editPreviewArray[4] = bgArray[1];
+
+		} else if (farbValue.equals("lime")) {
+			editPreviewArray[4] = bgArray[2];
+
+		} else if (farbValue.equals("mauve")) {
+			editPreviewArray[4] = bgArray[3];
+
+		} else if (farbValue.equals("mandarin")) {
+			editPreviewArray[4] = bgArray[4];
+
+		} else {
+			System.out.println("No matching background found.");
+		}
+		
+		System.out.println("editPreviewArray[4] : " + editPreviewArray[4]);
+
+		// Step 2: Store values in the array
+		editPreviewArray[0] = displayBanner.headline.getAttribute("value");
+		editPreviewArray[1] = displayBanner.claim.getAttribute("value");
+		editPreviewArray[2] = displayBanner.positioning.getAttribute("value");
+		editPreviewArray[3] = displayBanner.motifUrl.getAttribute("src").replace("_preview", "");
+		editPreviewArray[5] = "https://s3.eu-central-1.amazonaws.com/ads.ihk-stage/assets/logo/global_v.svg";
+//        editPreviewArray[6] = displayBanner.cta.getAttribute("value");  
+
+		displayBanner.closeBtn.click(); // click on close
+
+		driver.switchTo().frame(displayBanner.iframe250_250); // Switch to the iframe
+
+		landingpage.waitForElementToAppear(By.xpath("//div[@id='cta']")); // Wait for cta button to appear
+
+		// Declare an array
+		String[] actualPreviewArray = new String[6];
+
+		// Step 2: Store values in the array
+		actualPreviewArray[0] = displayBanner.actualHeadline.getAttribute("textContent").replaceAll("-", "").trim();
+		actualPreviewArray[1] = displayBanner.actualClaim.getAttribute("textContent").trim();
+		actualPreviewArray[2] = displayBanner.actualPositioning.getAttribute("textContent").trim();
+		actualPreviewArray[3] = displayBanner.actualMotif.getAttribute("src").replace("_250x250", "");
+		actualPreviewArray[4] = displayBanner.actualBg.getAttribute("src").replace("_250x250", "");
+		actualPreviewArray[5] = driver.findElement(By.xpath("//div[@id='logo']/img")).getAttribute("src");
+//        actualPreviewArray[6] = displayBanner.actualCta.getText().replaceAll("\\s+", " ").trim(); CTA is not possible because in the cta div, we didn't have text
+
+		System.out.println("editPreviewArray : " + Arrays.toString(editPreviewArray));
+		System.out.println("actualPreviewArray : " + Arrays.toString(actualPreviewArray));
+
+		softAssert.assertEquals(actualPreviewArray, editPreviewArray);
+		softAssert.assertTrue(driver.findElement(By.xpath("//body[@class='ready image']")).isDisplayed()); // Assert image is fully loaded
+		softAssert.assertAll();																										
+
+	}
+	
+	@DisplayName("verify that 728*90 image should visible")
+	@Test
+	public void checkPreview728_90() throws InterruptedException {
+		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+		module.clickToolBox();
+		displayBanner.clickOnDisplayBanner();
+		displayBanner.zuDenButton.get(0).click();
+		displayBanner.ceativeListVorschauBtn.get(0).click(); // view the first item from the list
+
+		landingpage.waitForElementToAppear(By.xpath("(//input[@role='combobox'])[1]"));
+		displayBanner.editPreviewBtn.click();// click on the edit preview button
+		
+		// Step 1: Declare an array
+		String[] editPreviewArray = new String[6];
+		String farbValue = displayBanner.farb.getAttribute("value");
+
+		if (farbValue.equals("sun")) {
+			editPreviewArray[4] = bgArray[0];
+
+		} else if (farbValue.equals("hibiscus")) {
+			editPreviewArray[4] = bgArray[1];
+
+		} else if (farbValue.equals("lime")) {
+			editPreviewArray[4] = bgArray[2];
+
+		} else if (farbValue.equals("mauve")) {
+			editPreviewArray[4] = bgArray[3];
+
+		} else if (farbValue.equals("mandarin")) {
+			editPreviewArray[4] = bgArray[4];
+
+		} else {
+			System.out.println("No matching background found.");
+		}
+		
+		System.out.println("editPreviewArray[4] : " + editPreviewArray[4]);
+
+		// Step 2: Store values in the array
+		editPreviewArray[0] = displayBanner.headline.getAttribute("value");
+		editPreviewArray[1] = displayBanner.claim.getAttribute("value");
+		editPreviewArray[2] = displayBanner.positioning.getAttribute("value");
+		editPreviewArray[3] = displayBanner.motifUrl.getAttribute("src").replace("_preview", "");
+		editPreviewArray[5] = "https://s3.eu-central-1.amazonaws.com/ads.ihk-stage/assets/logo/global_v.svg";
+//        editPreviewArray[6] = displayBanner.cta.getAttribute("value");  
+
+		displayBanner.closeBtn.click(); // click on close
+
+		driver.switchTo().frame(displayBanner.iframe728_90); // Switch to the iframe
+
+		landingpage.waitForElementToAppear(By.xpath("//div[@id='cta']")); // Wait for cta button to appear
+
+		// Declare an array
+		String[] actualPreviewArray = new String[6];
+
+		// Step 2: Store values in the array
+		actualPreviewArray[0] = displayBanner.actualHeadline.getAttribute("textContent").replaceAll("-", "").trim();
+		actualPreviewArray[1] = displayBanner.actualClaim.getAttribute("textContent").trim();
+		actualPreviewArray[2] = displayBanner.actualPositioning.getAttribute("textContent").trim();
+		actualPreviewArray[3] = displayBanner.actualMotif.getAttribute("src").replace("_728x90", "");
+		actualPreviewArray[4] = displayBanner.actualBg.getAttribute("src").replace("_728x90", "");
+		actualPreviewArray[5] = driver.findElement(By.xpath("//div[@id='logo']/img")).getAttribute("src");
+//        actualPreviewArray[6] = displayBanner.actualCta.getText().replaceAll("\\s+", " ").trim(); CTA is not possible because in the cta div, we didn't have text
+
+		System.out.println("editPreviewArray : " + Arrays.toString(editPreviewArray));
+		System.out.println("actualPreviewArray : " + Arrays.toString(actualPreviewArray));
+
+		softAssert.assertEquals(actualPreviewArray, editPreviewArray);
+		softAssert.assertTrue(driver.findElement(By.xpath("//body[@class='ready image']")).isDisplayed()); // Assert image is fully loaded
+		softAssert.assertAll();																										
+
+	}
+	
+	
 	@DisplayName("verify that selected option details should visible in the preview screen")
 	@Test
 	public void configurationChangeByDropdown() throws InterruptedException {
@@ -105,7 +470,7 @@ public class displayBannerCreativePreview extends BaseTest {
 		displayBanner.clickOnDisplayBanner();
 		displayBanner.zuDenButton.get(0).click();
 		displayBanner.ceativeListVorschauBtn.get(1).click(); // view the first item from the list
-		
+
 		landingpage.waitForElementToAppear(By.xpath("(//input[@role='combobox'])[1]"));
 
 		displayBanner.creativePreviewDropdownBtn.click();
@@ -113,16 +478,166 @@ public class displayBannerCreativePreview extends BaseTest {
 		String actualSelectedOption = driver
 				.findElement(By.xpath("(//div[@class='MuiBox-root css-175ha26'])//input[@role='combobox']"))
 				.getAttribute("value");
-		
+
 		String expectedHeader = displayBanner.creativePreviewSubheader.getText();
 
 		String[] expectedHeaderSplit = expectedHeader.split("\\|"); // split text
 		String expectedUid = expectedHeaderSplit[0].trim(); // take the first part
 
-		String[] actualSelectedOptionSplit = actualSelectedOption.split("\\s+");; // split text
+		String[] actualSelectedOptionSplit = actualSelectedOption.split("\\s+");
+		; // split text
 		String actualSelectedOptionUid = actualSelectedOptionSplit[0].trim(); // take the first part
 
 		Assert.assertEquals(expectedUid, actualSelectedOptionUid);
+
+	}
+
+	@DisplayName("verify that creative preview should visible")
+	@Test
+	public void checkPreview() throws InterruptedException {
+		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+		module.clickToolBox();
+		displayBanner.clickOnDisplayBanner();
+		displayBanner.zuDenButton.get(0).click();
+		displayBanner.ceativeListVorschauBtn.get(1).click(); // view the first item from the list
+
+		landingpage.waitForElementToAppear(By.xpath("(//input[@role='combobox'])[1]"));
+		displayBanner.editPreviewBtn.click();// click on the edit preview button
+
+		// Step 1: Declare an array
+		String[] editPreviewArray = new String[6];
+		String farbValue = displayBanner.farb.getAttribute("value");
+
+		if (farbValue.equals("sun")) {
+			editPreviewArray[4] = bgArray[0];
+
+		} else if (farbValue.equals("hibiscus")) {
+			editPreviewArray[4] = bgArray[1];
+
+		} else if (farbValue.equals("lime")) {
+			editPreviewArray[4] = bgArray[2];
+
+		} else if (farbValue.equals("mauve")) {
+			editPreviewArray[4] = bgArray[3];
+
+		} else if (farbValue.equals("mandarin")) {
+			editPreviewArray[4] = bgArray[4];
+
+		} else {
+			System.out.println("No matching background found.");
+		}
+		
+		// Step 2: Store values in the array
+		editPreviewArray[0] = displayBanner.headline.getAttribute("value");
+		editPreviewArray[1] = displayBanner.claim.getAttribute("value");
+		editPreviewArray[2] = displayBanner.positioning.getAttribute("value");
+		editPreviewArray[3] = displayBanner.motifUrl.getAttribute("src").replace("_preview", "");
+		editPreviewArray[5] = "https://s3.eu-central-1.amazonaws.com/ads.ihk-stage/assets/logo/global_v.svg";  
+
+		displayBanner.closeBtn.click(); // click on close
+
+		
+		driver.switchTo().frame(displayBanner.iframe300_600); // Switch to the iframe
+
+		landingpage.waitForElementToAppear(By.xpath("//div[@id='cta']")); // Wait for cta button to appear
+
+		// Declare an array
+		String[] actualPreviewArray = new String[6];
+
+		// Step 2: Store values in the array
+		actualPreviewArray[0] = displayBanner.actualHeadline.getAttribute("textContent").replaceAll("-", "").trim();
+		actualPreviewArray[1] = displayBanner.actualClaim.getAttribute("textContent").trim();
+		actualPreviewArray[2] = displayBanner.actualPositioning.getAttribute("textContent").trim();
+		actualPreviewArray[3] = displayBanner.actualMotif.getAttribute("src").replace("_300x600", "");
+		actualPreviewArray[4] = displayBanner.actualBg.getAttribute("src").replace("_300x600", "");
+		actualPreviewArray[5] = driver.findElement(By.xpath("//div[@id='logo']/img")).getAttribute("src");
+//        actualPreviewArray[6] = displayBanner.actualCta.getText().replaceAll("\\s+", " ").trim(); CTA is not possible because in the cta div, we didn't have text
+		
+		System.out.println("editPreviewArray : " + Arrays.toString(editPreviewArray));
+		System.out.println("actualPreviewArray : " + Arrays.toString(actualPreviewArray));
+
+		Assert.assertEquals(actualPreviewArray, editPreviewArray);
+
+	}
+
+	@DisplayName("verify that same creative preview should visible which i edited by content setting")
+	@Test
+	public void checkPreviewAfterEdit() throws InterruptedException {
+		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+		module.clickToolBox();
+		displayBanner.clickOnDisplayBanner();
+		displayBanner.zuDenButton.get(0).click();
+		displayBanner.ceativeListVorschauBtn.get(1).click(); // view the first item from the list
+
+		landingpage.waitForElementToAppear(By.xpath("(//input[@role='combobox'])[1]"));
+		displayBanner.editPreviewBtn.click();// click on the edit preview button
+
+		displayBanner.farb.click(); // click on farb dropdown
+		driver.findElement(By.xpath("//li[@role='option'][2]")).click(); // click on second option
+
+		displayBanner.headline.click(); // click on headline
+		driver.findElement(By.xpath("//li[@role='option'][2]")).click(); // click on second option
+
+		displayBanner.motif.click(); // click on motif
+		driver.findElement(By.xpath("//div[@role='option'][2]")).click(); // click on second option
+
+		displayBanner.cta.click(); // click on calltoaction
+		driver.findElement(By.xpath("//li[@role='option'][2]")).click(); // click on second option
+
+		displayBanner.submitPreviewBtn.click(); // click on preview
+
+		// Step 1: Declare an array
+		String[] editPreviewArray = new String[6];
+		String farbValue = displayBanner.farb.getAttribute("value");
+
+		if (farbValue.equals("sun")) {
+			editPreviewArray[4] = bgArray[0];
+
+		} else if (farbValue.equals("hibiscus")) {
+			editPreviewArray[4] = bgArray[1];
+
+		} else if (farbValue.equals("lime")) {
+			editPreviewArray[4] = bgArray[2];
+
+		} else if (farbValue.equals("mauve")) {
+			editPreviewArray[4] = bgArray[3];
+
+		} else if (farbValue.equals("mandarin")) {
+			editPreviewArray[4] = bgArray[4];
+
+		} else {
+			System.out.println("No matching background found.");
+		}
+		
+		// Step 2: Store values in the array
+		editPreviewArray[0] = displayBanner.headline.getAttribute("value");
+		editPreviewArray[1] = displayBanner.claim.getAttribute("value");
+		editPreviewArray[2] = displayBanner.positioning.getAttribute("value");
+		editPreviewArray[3] = displayBanner.motifUrl.getAttribute("src").replace("_preview", "");
+		editPreviewArray[5] = "https://s3.eu-central-1.amazonaws.com/ads.ihk-stage/assets/logo/global_v.svg";  
+
+		displayBanner.closeBtn.click(); // click on close
+		
+		driver.switchTo().frame(displayBanner.iframe300_600); // Switch to the iframe
+
+		landingpage.waitForElementToAppear(By.xpath("//div[@id='cta']")); // Wait for cta button to appear
+
+		// Declare an array
+		String[] actualPreviewArray = new String[6];
+
+		// Step 2: Store values in the array
+		actualPreviewArray[0] = displayBanner.actualHeadline.getAttribute("textContent").replaceAll("-", "").trim();
+		actualPreviewArray[1] = displayBanner.actualClaim.getAttribute("textContent").trim();
+		actualPreviewArray[2] = displayBanner.actualPositioning.getAttribute("textContent").trim();
+		actualPreviewArray[3] = displayBanner.actualMotif.getAttribute("src").replace("_300x600", "");
+		actualPreviewArray[4] = displayBanner.actualBg.getAttribute("src").replace("_300x600", "");
+		actualPreviewArray[5] = driver.findElement(By.xpath("//div[@id='logo']/img")).getAttribute("src");
+//        actualPreviewArray[6] = displayBanner.actualCta.getText().replaceAll("\\s+", " ").trim(); CTA is not possible because in the cta div, we didn't have text
+		
+		System.out.println("editPreviewArray : " + Arrays.toString(editPreviewArray));
+		System.out.println("actualPreviewArray : " + Arrays.toString(actualPreviewArray));
+
+		Assert.assertEquals(actualPreviewArray, editPreviewArray);	
 
 	}
 

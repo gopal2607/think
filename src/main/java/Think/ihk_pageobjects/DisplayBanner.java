@@ -1,5 +1,6 @@
 package Think.ihk_pageobjects;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -8,10 +9,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import Think.ihk_abstract.Abstract;
 
 public class DisplayBanner extends Abstract {
+	
+	
 
 	WebDriver driver;
 
@@ -109,11 +113,74 @@ public class DisplayBanner extends Abstract {
 	@FindBy(xpath="//div[@role='option']")
 	public List <WebElement> selectOption;
 	
+	
+	
+	
+	@FindBy (xpath="//div[@id='motif']/img")
+	public WebElement actualMotif;
+
+	@FindBy (xpath="//div[@id='headline']")
+	public WebElement actualHeadline;
+	
+	@FindBy (xpath="//div[@id='claim']")
+	public WebElement actualClaim;
+	
+	@FindBy (xpath="//div[@id='positioning']")
+	public WebElement actualPositioning;
+	
+	@FindBy (xpath="//div[@id='cta']/img")
+	public WebElement actualCta;
+	
+	@FindBy (xpath="//div[@id='bg']/img")
+	public WebElement actualBg;
+	
+	@FindBy (xpath="//div[@id='logo']/img")
+	public WebElement actualLogo;
+																																																																																																																																																																				
+	
+	
+	//------------------------------------Edit Creative Preview------------------------------------------------------------------------------
+	
+	
+	@FindBy (xpath="(//input[@role='combobox'])[2]")
+	public WebElement farb;
+
+	@FindBy (xpath="(//input[@role='combobox'])[3]")
+	public WebElement headline;
+	
+	@FindBy (xpath="(//input[@role='combobox'])[4]")
+	public WebElement claim;
+	
+	@FindBy (xpath="(//input[@role='combobox'])[5]")
+	public WebElement positioning;
+	
+	@FindBy (xpath="(//input[@role='combobox'])[6]")
+	public WebElement motif;
+	
+	@FindBy (xpath="(//input[@role='combobox'])[7]")
+	public WebElement cta;
+	
+	@FindBy (xpath="//textarea[@placeholder='exit']")
+	public WebElement exit;
+
+	@FindBy (xpath="//button[@aria-label='Preview aktualisieren']")
+	public WebElement submitPreviewBtn;
+	
+	@FindBy (xpath="//button[@aria-label='creative editor schließen']")
+	public WebElement closeBtn;
+
+	@FindBy (xpath="//div[@class='option-dropdown-image_img-preview__O7oC9']/img")
+	public WebElement motifUrl;
+	
 	@FindBy (xpath="//button[@aria-label='creative editor öffnen']")
 	public WebElement editPreviewBtn;
-
-	// ------------------------------------Different Resolution
-	// Images-------------------------------------------------------------
+	
+	
+	
+	
+	
+	
+	// ------------------------------------Different Resolution Images-------------------------------------------------------------
 
 	@FindBy(xpath = "(//div[@class='MuiGrid-root MuiGrid-item MuiGrid-grid-xs-auto css-1f3rkw9'][1])//iframe[@class='iframe_iframe__5BHQl']") // --------------300*600---------------------
 	public WebElement creativePreview300600Img;
@@ -177,5 +244,29 @@ public class DisplayBanner extends Abstract {
 		creativePreviewSaveBtn.click();
 
 	}
+	
+	
+	//---------------------------------------------------iFrames---------------------------------------------------------------
+	
+	@FindBy(xpath="//div[@class='MuiGrid-root MuiGrid-item MuiGrid-grid-xs-auto css-1f3rkw9'][1]//iframe[@class='iframe_iframe__5BHQl']")
+	public WebElement iframe300_600; // Iframe of 300*600
+	
+	@FindBy(xpath="//div[@class='MuiGrid-root MuiGrid-item MuiGrid-grid-xs-auto css-1f3rkw9'][2]//iframe[@class='iframe_iframe__5BHQl']")
+	public WebElement iframe160_600; //  Iframe of 160*600
+	
+	@FindBy(xpath="//div[@class='MuiGrid-root MuiGrid-item MuiGrid-grid-xs-auto css-1f3rkw9'][3]//iframe[@class='iframe_iframe__5BHQl']")
+	public	WebElement iframe300_250; // Iframe of 300*250
+	
+	@FindBy(xpath="//div[@class='MuiGrid-root MuiGrid-item MuiGrid-grid-xs-auto css-1f3rkw9'][4]//iframe[@class='iframe_iframe__5BHQl']")
+	public WebElement iframe800_250; // Iframe of 800*250
+	
+	@FindBy(xpath="//div[@class='MuiGrid-root MuiGrid-item MuiGrid-grid-xs-auto css-1f3rkw9'][5]//iframe[@class='iframe_iframe__5BHQl']")
+	public WebElement iframe250_250; // Iframe of 250*250
+	
+	@FindBy(xpath="//div[@class='MuiGrid-root MuiGrid-item MuiGrid-grid-xs-auto css-1f3rkw9'][6]//iframe[@class='iframe_iframe__5BHQl']")
+	public WebElement iframe728_90; // Iframe of 728*90
+	
+
+
 
 }
