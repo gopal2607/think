@@ -3,6 +3,7 @@ package Think.ihk_test;
 import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -17,7 +18,7 @@ public class displayBannerCreativeListing extends BaseTest {
 
 	@Test
 	public void navigateToTemplateList() throws InterruptedException {
-		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
 		module.clickToolBox();
 		displayBanner.clickOnDisplayBanner();
 		displayBanner.zuDenButton.get(1).click();
@@ -27,7 +28,7 @@ public class displayBannerCreativeListing extends BaseTest {
 
 	@Test
 	public void compareImageList() throws InterruptedException {
-		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
 		module.clickToolBox();
 		displayBanner.clickOnDisplayBanner();
 		displayBanner.zuDenButton.get(0).click();
@@ -46,7 +47,7 @@ public class displayBannerCreativeListing extends BaseTest {
 
 	@Test
 	public void compareHeadlineList() throws InterruptedException {
-		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
 		module.clickToolBox();
 		displayBanner.clickOnDisplayBanner();
 		displayBanner.zuDenButton.get(0).click();
@@ -63,7 +64,7 @@ public class displayBannerCreativeListing extends BaseTest {
 	@DisplayName("Search Result Comparision")
 	@Test
 	public void compareSearchCreativeListing() throws InterruptedException {
-		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
 		module.clickToolBox();
 		displayBanner.clickOnDisplayBanner();
 		displayBanner.zuDenButton.get(0).click();
@@ -76,7 +77,7 @@ public class displayBannerCreativeListing extends BaseTest {
 	@DisplayName("No found should be visible if no record available after search")
 	@Test
 	public void searchCreativeListingMessage() throws InterruptedException {
-		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
 		module.clickToolBox();
 		displayBanner.clickOnDisplayBanner();
 		displayBanner.zuDenButton.get(0).click();
@@ -89,7 +90,7 @@ public class displayBannerCreativeListing extends BaseTest {
 	@DisplayName("Filter By Region")
 	@Test
 	public void filterRegionCreativeListing() throws InterruptedException {
-		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
 		module.clickToolBox();
 		displayBanner.clickOnDisplayBanner();
 		displayBanner.zuDenButton.get(0).click();
@@ -101,7 +102,7 @@ public class displayBannerCreativeListing extends BaseTest {
 
 	@Test
 	public void addNewCampaign() throws InterruptedException {
-		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
 		displayBanner.addNewCampaign();
 		
 		landingpage.waitForElementToAppear(By.xpath("//div[text()='Editier-Modus ist aktiv.']"));
@@ -121,6 +122,39 @@ public class displayBannerCreativeListing extends BaseTest {
 		
 //		WebElement element = driver.findElement(By.xpath("//*[text() = 'creative preview']"));
 //		((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
+	}
+	
+	
+	
+	@Test
+	public void duplicateList() throws InterruptedException {
+		
+//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+		module.clickToolBox();
+		displayBanner.clickOnDisplayBanner();
+		displayBanner.zuDenButton.get(0).click();
+		landingpage.waitForListOfWebElementToAppear(displayBanner.ceativeListing);
+		
+		String expectedDuplicate = displayBanner.ceativeListHeadline.get(0).getText();	
+		
+		displayBanner.ceativeListMenuBtn.click();
+		displayBanner.ceativeListDupBtn.click();
+		
+		landingpage.waitForWebElementToAppear(displayBanner.submitPreviewBtn);
+        displayBanner.submitPreviewBtn.click();
+
+		landingpage.scrollPage();
+		landingpage.waitForWebElementToAppear(displayBanner.editCreativeSaveBtn);
+
+		displayBanner.editCreativeSaveBtn.click();
+			
+		WebElement element1 = driver.findElement(By.xpath("//*[text() = 'creative preview']"));
+		((JavascriptExecutor)driver).executeScript("arguments[0].click();", element1);
+		
+		driver.switchTo().alert().accept();
+		String actualDuplicate = displayBanner.ceativeListHeadline.get(0).getText();	
+		Assert.assertEquals(actualDuplicate, expectedDuplicate);
+
 	}
 
 }

@@ -15,7 +15,7 @@ public class displayBannerTemplateList extends BaseTest {
 
 	@Test
 	public void navigateDisplayBannerModule() throws InterruptedException {
-		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
 		module.clickToolBox();
 		displayBanner.clickOnDisplayBanner();
 		Assert.assertEquals(displayBanner.displayCampheader.getText(), "Display Banner");
@@ -24,7 +24,7 @@ public class displayBannerTemplateList extends BaseTest {
 
 	@Test
 	public void verifyTypOfDisplayBanner() throws InterruptedException {
-		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
 		module.clickToolBox();
 		displayBanner.clickOnDisplayBanner();
 		List<WebElement> typList = displayBanner.typ;

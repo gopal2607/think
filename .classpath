@@ -15,6 +15,7 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
 		<attributes>
+			<attribute name="module" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
@@ -26,8 +27,8 @@
 	<classpathentry kind="con" path="org.testng.TESTNG_CONTAINER"/>
 	<classpathentry kind="lib" path="C:/Users/mehul/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.10.3/jackson-databind-2.10.3.jar" sourcepath="C:/Users/mehul/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.10.3/jackson-databind-2.10.3-sources.jar">
 		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
 			<attribute name="javadoc_location" value="jar:file:/C:/Users/mehul/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.10.3/jackson-databind-2.10.3-javadoc.jar!/"/>
+			<attribute name="maven.pomderived" value="true"/>
 			<attribute name="maven.groupId" value="com.fasterxml.jackson.core"/>
 			<attribute name="maven.artifactId" value="jackson-databind"/>
 			<attribute name="maven.version" value="2.10.3"/>
@@ -36,8 +37,8 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/mehul/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.10.3/jackson-core-2.10.3.jar" sourcepath="C:/Users/mehul/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.10.3/jackson-core-2.10.3-sources.jar">
 		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
 			<attribute name="javadoc_location" value="jar:file:/C:/Users/mehul/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.10.3/jackson-core-2.10.3-javadoc.jar!/"/>
+			<attribute name="maven.pomderived" value="true"/>
 			<attribute name="maven.groupId" value="com.fasterxml.jackson.core"/>
 			<attribute name="maven.artifactId" value="jackson-core"/>
 			<attribute name="maven.version" value="2.10.3"/>

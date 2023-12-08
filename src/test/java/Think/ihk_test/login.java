@@ -15,16 +15,15 @@ public class login extends BaseTest {
 	@Test
 	public void Login() {
 
-		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");		
 		WebElement headerName = driver.findElement(By.tagName("header"));
 		System.out.println(headerName.getText());
-		Assert.assertTrue(headerName.getText().contains("Dashboard"));
-		
+		Assert.assertTrue(headerName.getText().contains("Dashboard"));	
 	}
 
 	@Test
 	public void drawerVisible() throws InterruptedException {
-		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
 
 		List<WebElement> actualDrawerName = driver
 				.findElements(By.xpath("(//span[contains(@class,'MuiTypography-root MuiTypography-body1')])"));

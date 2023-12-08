@@ -1,5 +1,8 @@
 package Think.ihk_pageobjects;
 
+import java.util.Set;
+
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -17,6 +20,8 @@ public class LandingPage extends Abstract {
 		super(driver);
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
+	
+
 	}
 	
 	
@@ -46,7 +51,15 @@ public class LandingPage extends Abstract {
 
 	public void GoTo() {
 		driver.get("https://stage.ihk.cmp.thjnk-247.de/");
-	
+		LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+		
+		// Store cookies after auto-login
+        Set<Cookie> storedCookies = driver.manage().getCookies();
+        
+        // Load cookies before navigating to the target page
+        for (Cookie cookie : storedCookies) {
+            driver.manage().addCookie(cookie);
+        }
 
 	}
 }

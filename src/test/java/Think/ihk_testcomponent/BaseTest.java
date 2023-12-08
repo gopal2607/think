@@ -57,7 +57,7 @@ public class BaseTest {
 			
 			options.addArguments("--remote-allow-origins=*");
 			driver = new ChromeDriver(options);
-			options.addArguments("user-data-dir=/path/to/folder/");
+			options.addArguments("user-data-dir=/path/to/folder/profile");
 		} else if (browserName.equalsIgnoreCase("firefox")) {
 //			System.setProperty("webdriver.gecko.driver", "C:\\Users\\mehul\\Downloads\\geckodriver\\geckodriver.exe");
 			driver = new FirefoxDriver();
@@ -65,6 +65,8 @@ public class BaseTest {
 		} else {
 			driver = new EdgeDriver();
 		}
+		
+		
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		return driver;

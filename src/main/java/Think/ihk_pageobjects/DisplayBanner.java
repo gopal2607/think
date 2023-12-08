@@ -74,6 +74,13 @@ public class DisplayBanner extends Abstract {
 
 	@FindBy(xpath = "//button[@id='context-menu']")
 	public WebElement ceativeListMenuBtn;
+	
+	@FindBy(xpath = "//span[text()='Duplizieren']")
+	public WebElement ceativeListDupBtn;
+	
+	
+	@FindBy(xpath="//button[@aria-label='Aktuelle Einstellungen als neuen Eintrag speichern.']")
+	public WebElement editCreativeSaveBtn;
 
 	@FindBy(xpath = "//button[text()='Neu']")
 	public WebElement ceativeListNeuBtn;

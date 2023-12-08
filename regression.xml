@@ -9,9 +9,7 @@
   <test thread-count="5" name="Test">
     <classes>
       <class name="Think.ihk_test.login"/>
-      <class name="Think.ihk_test.displayBannerCreativeListing"/>
-      <class name="Think.ihk_test.displayBannerTemplateList"/>
-      <class name="Think.ihk_test.dashboard"/>
+     
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

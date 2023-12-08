@@ -18,17 +18,32 @@ public class Listeners extends BaseTest implements ITestListener {
 	ExtentTest test;
 	ThreadLocal<ExtentTest> extentTest = new ThreadLocal<ExtentTest>();
 	ExtentReports extent = ExtentReporterNG.getReport();
-
+	
 	@Override
 	public void onTestStart(ITestResult result) {
 
-		test = extent.createTest(result.getMethod().getMethodName());
-		extentTest.set(test);
+		
+		
+		    
+		    // If you want to use the actual method name as the test name
+		     String customTestName = result.getMethod().getMethodName();
+		    
+		    // If you want to use the actual method description as the test description
+		     String customTestDescription = result.getMethod().getDescription();
+		    
+		    test = extent.createTest(customTestName, "Testcase Description: " +customTestDescription);
+		    extentTest.set(test);
+		
+//		test = extent.createTest(result.getMethod().getDescription());
+//		extentTest.set( test);
+		
+		
 	}
 
 	@Override
 	public void onTestSuccess(ITestResult result) {
-		
+
+
 		test.log(Status.PASS, "Test Passed");
 	} 
 

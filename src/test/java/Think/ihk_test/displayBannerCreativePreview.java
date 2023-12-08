@@ -1,12 +1,9 @@
 package Think.ihk_test;
 
 import java.util.Arrays;
-import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -29,7 +26,7 @@ public class displayBannerCreativePreview extends BaseTest {
 	@DisplayName("verify that 300*600 image should visible")
 	@Test
 	public void checkPreview300_600() throws InterruptedException {
-		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
 		module.clickToolBox();
 		displayBanner.clickOnDisplayBanner();
 		displayBanner.zuDenButton.get(0).click();
@@ -102,7 +99,7 @@ public class displayBannerCreativePreview extends BaseTest {
 	@DisplayName("verify that 160*600 image should visible")
 	@Test
 	public void checkPreview160_600() throws InterruptedException {
-		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
 		module.clickToolBox();
 		displayBanner.clickOnDisplayBanner();
 		displayBanner.zuDenButton.get(0).click();
@@ -175,7 +172,7 @@ public class displayBannerCreativePreview extends BaseTest {
 	@DisplayName("verify that 300*250 image should visible")
 	@Test
 	public void checkPreview300_250() throws InterruptedException {
-		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
 		module.clickToolBox();
 		displayBanner.clickOnDisplayBanner();
 		displayBanner.zuDenButton.get(0).click();
@@ -247,7 +244,7 @@ public class displayBannerCreativePreview extends BaseTest {
 	@DisplayName("verify that 800*250 image should visible")
 	@Test
 	public void checkPreview800_250() throws InterruptedException {
-		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
 		module.clickToolBox();
 		displayBanner.clickOnDisplayBanner();
 		displayBanner.zuDenButton.get(0).click();
@@ -320,7 +317,7 @@ public class displayBannerCreativePreview extends BaseTest {
 	@DisplayName("verify that 250*250 image should visible")
 	@Test
 	public void checkPreview250_250() throws InterruptedException {
-		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
 		module.clickToolBox();
 		displayBanner.clickOnDisplayBanner();
 		displayBanner.zuDenButton.get(0).click();
@@ -392,7 +389,7 @@ public class displayBannerCreativePreview extends BaseTest {
 	@DisplayName("verify that 728*90 image should visible")
 	@Test
 	public void checkPreview728_90() throws InterruptedException {
-		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
 		module.clickToolBox();
 		displayBanner.clickOnDisplayBanner();
 		displayBanner.zuDenButton.get(0).click();
@@ -465,7 +462,7 @@ public class displayBannerCreativePreview extends BaseTest {
 	@DisplayName("verify that selected option details should visible in the preview screen")
 	@Test
 	public void configurationChangeByDropdown() throws InterruptedException {
-		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
 		module.clickToolBox();
 		displayBanner.clickOnDisplayBanner();
 		displayBanner.zuDenButton.get(0).click();
@@ -495,7 +492,7 @@ public class displayBannerCreativePreview extends BaseTest {
 	@DisplayName("verify that creative preview should visible")
 	@Test
 	public void checkPreview() throws InterruptedException {
-		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
 		module.clickToolBox();
 		displayBanner.clickOnDisplayBanner();
 		displayBanner.zuDenButton.get(0).click();
@@ -563,7 +560,7 @@ public class displayBannerCreativePreview extends BaseTest {
 	@DisplayName("verify that same creative preview should visible which i edited by content setting")
 	@Test
 	public void checkPreviewAfterEdit() throws InterruptedException {
-		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
 		module.clickToolBox();
 		displayBanner.clickOnDisplayBanner();
 		displayBanner.zuDenButton.get(0).click();
