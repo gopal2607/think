@@ -1,25 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Failed suite [Suite]" guice-stage="DEVELOPMENT">
-  <listeners>
-    <listener class-name="Think.ihk_testcomponent.Listeners"/>
-  </listeners>
   <test thread-count="5" name="Test(failed)">
     <classes>
-      <class name="Think.ihk_test.dashboard">
+      <class name="Think.ihk_test.displayBannerCreativePreview">
         <methods>
+          <include name="configurationChangeByDropdown"/>
           <include name="TearDown"/>
+          <include name="checkPreviewAfterEdit"/>
           <include name="launchApplication"/>
-          <include name="motifsImageVisible"/>
+          <include name="checkPreview800_250"/>
         </methods>
-      </class> <!-- Think.ihk_test.dashboard -->
+      </class> <!-- Think.ihk_test.displayBannerCreativePreview -->
       <class name="Think.ihk_test.displayBannerCreativeListing">
         <methods>
           <include name="TearDown"/>
           <include name="launchApplication"/>
-          <include name="compareSearchCreativeListing"/>
+          <include name="duplicateList"/>
         </methods>
       </class> <!-- Think.ihk_test.displayBannerCreativeListing -->
+      <class name="Think.ihk_test.dashboard">
+        <methods>
+          <include name="TearDown"/>
+          <include name="launchApplication"/>
+          <include name="motifsImageVisibleFinal"/>
+        </methods>
+      </class> <!-- Think.ihk_test.dashboard -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->

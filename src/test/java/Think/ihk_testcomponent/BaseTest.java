@@ -16,8 +16,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -92,8 +95,8 @@ public class BaseTest {
 		return System.getProperty("user.dir") + "//reports//" + testcasename + ".png";
 	}
 
-	@BeforeMethod(alwaysRun = true)
-	public LandingPage launchApplication() throws IOException {
+	@BeforeClass(alwaysRun = true)
+	public LandingPage launchApplication() throws IOException, InterruptedException {
 		driver = initializeDriver();
 		landingpage = new LandingPage(driver);
 		module = new Modules(driver);
@@ -102,10 +105,11 @@ public class BaseTest {
 		displayBanner =  new DisplayBanner(driver);
 		landingpage.GoTo();
 		return landingpage;
+		
 
 	}
 
-	@AfterMethod(alwaysRun = true)
+	@AfterClass(alwaysRun = true)
 	public void TearDown() {
 		driver.close();
 		

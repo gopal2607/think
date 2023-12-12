@@ -9,22 +9,26 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import Think.ihk_testcomponent.BaseTest;
+import Think.ihk_testcomponent.Retry;
+
+
 
 public class displayBannerTemplateList extends BaseTest {
 	SoftAssert softAssert = new SoftAssert();
 
-	@Test
+	@Test(description ="Verify that user should able to navigate to the display banner screen ", retryAnalyzer = Retry.class )
 	public void navigateDisplayBannerModule() throws InterruptedException {
-//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+
 		module.clickToolBox();
 		displayBanner.clickOnDisplayBanner();
 		Assert.assertEquals(displayBanner.displayCampheader.getText(), "Display Banner");
 
 	}
 
-	@Test
+	@Test(description ="Verify type of the display banner", retryAnalyzer = Retry.class )
+
 	public void verifyTypOfDisplayBanner() throws InterruptedException {
-//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+
 		module.clickToolBox();
 		displayBanner.clickOnDisplayBanner();
 		List<WebElement> typList = displayBanner.typ;

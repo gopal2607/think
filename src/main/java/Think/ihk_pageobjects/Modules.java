@@ -22,8 +22,10 @@ public class Modules extends Abstract {
 	
 //	WebElement email = driver.findElement(By.id("userEmail"));
 
-
-	@FindBy(xpath="(//div[@class='MuiBox-root css-1inketk'])[4]")
+	@FindBy(xpath="(//a[@href='/dashboard/'])[1]")
+	public WebElement dashboard;
+	
+	@FindBy(xpath="//a[@href='/motif-management/']")
 	public WebElement motifMan;
 	
 	@FindBy(xpath="(//div[@class='MuiBox-root css-1inketk'])[1]")
@@ -35,10 +37,10 @@ public class Modules extends Abstract {
 	@FindBy(xpath="(//div[@class='MuiBox-root css-1inketk'])[3]")
 	public	WebElement approvals;
 	
-	@FindBy(xpath="(//div[@class='MuiBox-root css-1inketk'])[5]")
+	@FindBy(xpath="//a[@href='/role-management/']")
 	public WebElement rollMan;
 	
-	@FindBy(xpath="(//div[@class='MuiBox-root css-1inketk'])[6]")
+	@FindBy(xpath="//a[@href='/creative-settings/']")
 	public	WebElement textAssets;
 	
 	

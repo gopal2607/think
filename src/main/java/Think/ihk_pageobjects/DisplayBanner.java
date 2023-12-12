@@ -44,6 +44,8 @@ public class DisplayBanner extends Abstract {
 
 	public void clickOnDisplayBanner() {
 		displayBanner.click();
+		waitForWebElementToAppear(displayCampheader);
+		
 	}
 
 //	-------------------------------------Creative Listing Page------------------------------------------------------
@@ -77,6 +79,15 @@ public class DisplayBanner extends Abstract {
 	
 	@FindBy(xpath = "//span[text()='Duplizieren']")
 	public WebElement ceativeListDupBtn;
+	
+	@FindBy(xpath = "//span[text()='Löschen']")
+	public WebElement ceativeListDeleteBtn;
+	
+	@FindBy(xpath = "//input[@placeholder='Wirklich löschen']")
+	public WebElement ceativeListDeleteConfText;
+	
+	@FindBy(xpath = "//button[text()='Wirklich löschen']")
+	public WebElement ceativeListDeleteConfBtn;
 	
 	
 	@FindBy(xpath="//button[@aria-label='Aktuelle Einstellungen als neuen Eintrag speichern.']")

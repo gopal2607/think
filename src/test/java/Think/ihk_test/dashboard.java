@@ -10,14 +10,16 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import Think.ihk_testcomponent.BaseTest;
+import Think.ihk_testcomponent.Retry;
+
+@Test(retryAnalyzer = Think.ihk_testcomponent.Retry.class )
 
 public class dashboard extends BaseTest {
 		
 	
-	@Test(description ="Verify that motif name should same as we have added in the motif management")
+	@Test(description ="Verify that motif name should same as we have added in the motif management", retryAnalyzer = Retry.class )
 	public void motifsNameVisiblefinal() throws InterruptedException {
-//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123"); // Login
-		
+		module.dashboard.click();
         List<String> dashMotiveNameListArray = new ArrayList<>();
        
         List<WebElement> dashMotiveNames = dashboard.motiveNameList ; // Store the listing of motive name from the dashboard	
@@ -26,8 +28,7 @@ public class dashboard extends BaseTest {
         }
 
 		module.clickMotifMan(); // Click on the motifMan module
-		landingpage.waitForElementToAppear(
-				By.xpath("//div[@class='MuiDataGrid-virtualScrollerContent css-0']//div[@data-field='motif']"));
+		landingpage.waitForListOfWebElementToAppear(motifMan.motifList);
 		 // Step 3: Iterate through the pagination
         boolean nextPageAvailable = true;
         
@@ -69,9 +70,11 @@ public class dashboard extends BaseTest {
 	
 	
 	
-	@Test (description ="Verify that motif url should same as we have added in the motif management")
+	@Test (description ="Verify that motif url should same as we have added in the motif management" , retryAnalyzer = Retry.class)
 	public void motifsImageVisibleFinal() throws InterruptedException {
-//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+
+		
+		module.dashboard.click();
 
         List<String> dashMotiveImgListArray = new ArrayList<>();
        

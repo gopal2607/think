@@ -9,21 +9,23 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import Think.ihk_testcomponent.BaseTest;
+import Think.ihk_testcomponent.Retry;
+
 
 public class login extends BaseTest {
 
-	@Test
+	@Test(description ="Verify that motif name should same as we have added in the motif management", retryAnalyzer = Retry.class )
 	public void Login() {
 
-//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");		
+		
 		WebElement headerName = driver.findElement(By.tagName("header"));
 		System.out.println(headerName.getText());
 		Assert.assertTrue(headerName.getText().contains("Dashboard"));	
 	}
 
-	@Test
+	@Test(description ="Verify that motif name should same as we have added in the motif management", retryAnalyzer = Retry.class )
 	public void drawerVisible() throws InterruptedException {
-//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+
 
 		List<WebElement> actualDrawerName = driver
 				.findElements(By.xpath("(//span[contains(@class,'MuiTypography-root MuiTypography-body1')])"));
@@ -34,9 +36,5 @@ public class login extends BaseTest {
 		for (int i = 0; i < actualDrawerName.size(); i++) {
 			Assert.assertEquals(expectedDrawerName[i], actualDrawerName.get(i).getText());
 		}
-
 	}
-
-	
-
 }

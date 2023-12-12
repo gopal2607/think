@@ -9,6 +9,9 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import Think.ihk_testcomponent.BaseTest;
+import Think.ihk_testcomponent.Retry;
+
+@Test(retryAnalyzer = Think.ihk_testcomponent.Retry.class )
 
 public class displayBannerCreativePreview extends BaseTest {
 	SoftAssert softAssert = new SoftAssert();
@@ -20,13 +23,12 @@ public class displayBannerCreativePreview extends BaseTest {
 	static final String mandarin = "https://s3.eu-central-1.amazonaws.com/ads.ihk-stage/assets/themes/mandarin.jpg";
 
 	public static final String[] bgArray = { sun, hibiscus, lime, mauve, mandarin };
-
-
 	
-	@DisplayName("verify that 300*600 image should visible")
-	@Test
+
+	@Test(description ="Verify that  300*600 image should visible", retryAnalyzer = Retry.class )
+
 	public void checkPreview300_600() throws InterruptedException {
-//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+
 		module.clickToolBox();
 		displayBanner.clickOnDisplayBanner();
 		displayBanner.zuDenButton.get(0).click();
@@ -85,21 +87,23 @@ public class displayBannerCreativePreview extends BaseTest {
 		actualPreviewArray[4] = displayBanner.actualBg.getAttribute("src").replace("_300x600", "");
 		actualPreviewArray[5] = driver.findElement(By.xpath("//div[@id='logo']/img")).getAttribute("src");
 //        actualPreviewArray[6] = displayBanner.actualCta.getText().replaceAll("\\s+", " ").trim(); CTA is not possible because in the cta div, we didn't have text
+		softAssert.assertTrue(driver.findElement(By.xpath("//body[@class='ready image']")).isDisplayed()); // Assert image is fully loaded
 
+		driver.switchTo().defaultContent();
 		System.out.println("editPreviewArray : " + Arrays.toString(editPreviewArray));
 		System.out.println("actualPreviewArray : " + Arrays.toString(actualPreviewArray));
 
 		softAssert.assertEquals(actualPreviewArray, editPreviewArray);
-		softAssert.assertTrue(driver.findElement(By.xpath("//body[@class='ready image']")).isDisplayed()); // Assert image is fully loaded
-		softAssert.assertAll();																										
+		softAssert.assertAll();		
+		
 
 	}
 
 	
-	@DisplayName("verify that 160*600 image should visible")
-	@Test
+	@Test(description ="Verify that 160*600 image should visible", retryAnalyzer = Retry.class )
+
 	public void checkPreview160_600() throws InterruptedException {
-//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+
 		module.clickToolBox();
 		displayBanner.clickOnDisplayBanner();
 		displayBanner.zuDenButton.get(0).click();
@@ -158,24 +162,30 @@ public class displayBannerCreativePreview extends BaseTest {
 		actualPreviewArray[4] = displayBanner.actualBg.getAttribute("src").replace("_160x600", "");
 		actualPreviewArray[5] = driver.findElement(By.xpath("//div[@id='logo']/img")).getAttribute("src");
 //        actualPreviewArray[6] = displayBanner.actualCta.getText().replaceAll("\\s+", " ").trim(); CTA is not possible because in the cta div, we didn't have text
-
+		softAssert.assertTrue(driver.findElement(By.xpath("//body[@class='ready image']")).isDisplayed()); // Assert image is fully loaded
+		driver.switchTo().defaultContent();
+		
 		System.out.println("editPreviewArray : " + Arrays.toString(editPreviewArray));
 		System.out.println("actualPreviewArray : " + Arrays.toString(actualPreviewArray));
 
 		softAssert.assertEquals(actualPreviewArray, editPreviewArray);
-		softAssert.assertTrue(driver.findElement(By.xpath("//body[@class='ready image']")).isDisplayed()); // Assert image is fully loaded
-		softAssert.assertAll();																										
+	
+		softAssert.assertAll();		
+		
+		
+
 
 	}
 	
 	
-	@DisplayName("verify that 300*250 image should visible")
-	@Test
+	@Test(description ="Verify that  300*250 image should visible", retryAnalyzer = Retry.class )
+
 	public void checkPreview300_250() throws InterruptedException {
-//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+
 		module.clickToolBox();
 		displayBanner.clickOnDisplayBanner();
 		displayBanner.zuDenButton.get(0).click();
+		Thread.sleep(2000);
 		displayBanner.ceativeListVorschauBtn.get(0).click(); // view the first item from the list
 
 		landingpage.waitForElementToAppear(By.xpath("(//input[@role='combobox'])[1]"));
@@ -230,21 +240,23 @@ public class displayBannerCreativePreview extends BaseTest {
 		actualPreviewArray[4] = displayBanner.actualBg.getAttribute("src").replace("_300x250", "");
 		actualPreviewArray[5] = driver.findElement(By.xpath("//div[@id='logo']/img")).getAttribute("src");
 //        actualPreviewArray[6] = displayBanner.actualCta.getText().replaceAll("\\s+", " ").trim(); CTA is not possible because in the cta div, we didn't have text
+		softAssert.assertTrue(driver.findElement(By.xpath("//body[@class='ready image']")).isDisplayed()); // Assert image is fully loaded
 
+		driver.switchTo().defaultContent();
 		System.out.println("editPreviewArray : " + Arrays.toString(editPreviewArray));
 		System.out.println("actualPreviewArray : " + Arrays.toString(actualPreviewArray));
 
 		softAssert.assertEquals(actualPreviewArray, editPreviewArray);
-		softAssert.assertTrue(driver.findElement(By.xpath("//body[@class='ready image']")).isDisplayed()); // Assert image is fully loaded
-		softAssert.assertAll();																										
+		softAssert.assertAll();				
+		
 
 	}
 	
 	
-	@DisplayName("verify that 800*250 image should visible")
-	@Test
+	@Test(description ="Verify that 800*250 image should visible", retryAnalyzer = Retry.class )
+
 	public void checkPreview800_250() throws InterruptedException {
-//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+
 		module.clickToolBox();
 		displayBanner.clickOnDisplayBanner();
 		displayBanner.zuDenButton.get(0).click();
@@ -303,21 +315,24 @@ public class displayBannerCreativePreview extends BaseTest {
 		actualPreviewArray[4] = displayBanner.actualBg.getAttribute("src").replace("_800x250", "");
 		actualPreviewArray[5] = driver.findElement(By.xpath("//div[@id='logo']/img")).getAttribute("src");
 //        actualPreviewArray[6] = displayBanner.actualCta.getText().replaceAll("\\s+", " ").trim(); CTA is not possible because in the cta div, we didn't have text
+		softAssert.assertTrue(driver.findElement(By.xpath("//body[@class='ready image']")).isDisplayed()); // Assert image is fully loaded
 
+		driver.switchTo().defaultContent();
 		System.out.println("editPreviewArray : " + Arrays.toString(editPreviewArray));
 		System.out.println("actualPreviewArray : " + Arrays.toString(actualPreviewArray));
 
 		softAssert.assertEquals(actualPreviewArray, editPreviewArray);
-		softAssert.assertTrue(driver.findElement(By.xpath("//body[@class='ready image']")).isDisplayed()); // Assert image is fully loaded
-		softAssert.assertAll();																										
+		softAssert.assertAll();	
+		
 
 	}
 	
 	
-	@DisplayName("verify that 250*250 image should visible")
-	@Test
+
+	@Test(description ="Verify that  250*250 image should visible", retryAnalyzer = Retry.class )
+
 	public void checkPreview250_250() throws InterruptedException {
-//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+
 		module.clickToolBox();
 		displayBanner.clickOnDisplayBanner();
 		displayBanner.zuDenButton.get(0).click();
@@ -377,19 +392,23 @@ public class displayBannerCreativePreview extends BaseTest {
 		actualPreviewArray[5] = driver.findElement(By.xpath("//div[@id='logo']/img")).getAttribute("src");
 //        actualPreviewArray[6] = displayBanner.actualCta.getText().replaceAll("\\s+", " ").trim(); CTA is not possible because in the cta div, we didn't have text
 
+		softAssert.assertTrue(driver.findElement(By.xpath("//body[@class='ready image']")).isDisplayed()); // Assert image is fully loaded
+
+		driver.switchTo().defaultContent();
 		System.out.println("editPreviewArray : " + Arrays.toString(editPreviewArray));
 		System.out.println("actualPreviewArray : " + Arrays.toString(actualPreviewArray));
 
 		softAssert.assertEquals(actualPreviewArray, editPreviewArray);
-		softAssert.assertTrue(driver.findElement(By.xpath("//body[@class='ready image']")).isDisplayed()); // Assert image is fully loaded
-		softAssert.assertAll();																										
+		softAssert.assertAll();	
+		
+		
 
 	}
 	
-	@DisplayName("verify that 728*90 image should visible")
-	@Test
+	@Test(description ="Verify that  728*90 image should visible", retryAnalyzer = Retry.class )
+
 	public void checkPreview728_90() throws InterruptedException {
-//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+
 		module.clickToolBox();
 		displayBanner.clickOnDisplayBanner();
 		displayBanner.zuDenButton.get(0).click();
@@ -448,21 +467,24 @@ public class displayBannerCreativePreview extends BaseTest {
 		actualPreviewArray[4] = displayBanner.actualBg.getAttribute("src").replace("_728x90", "");
 		actualPreviewArray[5] = driver.findElement(By.xpath("//div[@id='logo']/img")).getAttribute("src");
 //        actualPreviewArray[6] = displayBanner.actualCta.getText().replaceAll("\\s+", " ").trim(); CTA is not possible because in the cta div, we didn't have text
+		softAssert.assertTrue(driver.findElement(By.xpath("//body[@class='ready image']")).isDisplayed()); // Assert image is fully loaded
 
+		driver.switchTo().defaultContent();
 		System.out.println("editPreviewArray : " + Arrays.toString(editPreviewArray));
 		System.out.println("actualPreviewArray : " + Arrays.toString(actualPreviewArray));
-
+		
 		softAssert.assertEquals(actualPreviewArray, editPreviewArray);
-		softAssert.assertTrue(driver.findElement(By.xpath("//body[@class='ready image']")).isDisplayed()); // Assert image is fully loaded
-		softAssert.assertAll();																										
+		softAssert.assertAll();		
+		
 
 	}
 	
 	
-	@DisplayName("verify that selected option details should visible in the preview screen")
-	@Test
+	
+	@Test(description ="Verify that selected option from the configuration should visible in the preview screen", retryAnalyzer = Retry.class )
+
 	public void configurationChangeByDropdown() throws InterruptedException {
-//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+
 		module.clickToolBox();
 		displayBanner.clickOnDisplayBanner();
 		displayBanner.zuDenButton.get(0).click();
@@ -481,18 +503,17 @@ public class displayBannerCreativePreview extends BaseTest {
 		String[] expectedHeaderSplit = expectedHeader.split("\\|"); // split text
 		String expectedUid = expectedHeaderSplit[0].trim(); // take the first part
 
-		String[] actualSelectedOptionSplit = actualSelectedOption.split("\\s+");
-		; // split text
+		String[] actualSelectedOptionSplit = actualSelectedOption.split("\\s+"); // split text
 		String actualSelectedOptionUid = actualSelectedOptionSplit[0].trim(); // take the first part
-
 		Assert.assertEquals(expectedUid, actualSelectedOptionUid);
+		
 
 	}
 
-	@DisplayName("verify that creative preview should visible")
-	@Test
+	@Test(description ="Verify that creative preview should visible", retryAnalyzer = Retry.class )
+
 	public void checkPreview() throws InterruptedException {
-//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+
 		module.clickToolBox();
 		displayBanner.clickOnDisplayBanner();
 		displayBanner.zuDenButton.get(0).click();
@@ -532,7 +553,6 @@ public class displayBannerCreativePreview extends BaseTest {
 		editPreviewArray[5] = "https://s3.eu-central-1.amazonaws.com/ads.ihk-stage/assets/logo/global_v.svg";  
 
 		displayBanner.closeBtn.click(); // click on close
-
 		
 		driver.switchTo().frame(displayBanner.iframe300_600); // Switch to the iframe
 
@@ -548,19 +568,24 @@ public class displayBannerCreativePreview extends BaseTest {
 		actualPreviewArray[3] = displayBanner.actualMotif.getAttribute("src").replace("_300x600", "");
 		actualPreviewArray[4] = displayBanner.actualBg.getAttribute("src").replace("_300x600", "");
 		actualPreviewArray[5] = driver.findElement(By.xpath("//div[@id='logo']/img")).getAttribute("src");
-//        actualPreviewArray[6] = displayBanner.actualCta.getText().replaceAll("\\s+", " ").trim(); CTA is not possible because in the cta div, we didn't have text
+//      actualPreviewArray[6] = displayBanner.actualCta.getText().replaceAll("\\s+", " ").trim(); CTA is not possible because in the cta div, we didn't have text
 		
+		driver.switchTo().defaultContent();
 		System.out.println("editPreviewArray : " + Arrays.toString(editPreviewArray));
 		System.out.println("actualPreviewArray : " + Arrays.toString(actualPreviewArray));
-
+		
 		Assert.assertEquals(actualPreviewArray, editPreviewArray);
+		
+		
+
 
 	}
 
-	@DisplayName("verify that same creative preview should visible which i edited by content setting")
-	@Test
+
+	@Test(description ="Verify that  same creative preview should visible which i edited by content setting", retryAnalyzer = Retry.class )
+
 	public void checkPreviewAfterEdit() throws InterruptedException {
-//		landingpage.LoginApplication("ruchi@scaletech.xyz", "Scaletech@123");
+
 		module.clickToolBox();
 		displayBanner.clickOnDisplayBanner();
 		displayBanner.zuDenButton.get(0).click();
@@ -631,10 +656,12 @@ public class displayBannerCreativePreview extends BaseTest {
 		actualPreviewArray[5] = driver.findElement(By.xpath("//div[@id='logo']/img")).getAttribute("src");
 //        actualPreviewArray[6] = displayBanner.actualCta.getText().replaceAll("\\s+", " ").trim(); CTA is not possible because in the cta div, we didn't have text
 		
+		driver.switchTo().defaultContent();
 		System.out.println("editPreviewArray : " + Arrays.toString(editPreviewArray));
 		System.out.println("actualPreviewArray : " + Arrays.toString(actualPreviewArray));
 
 		Assert.assertEquals(actualPreviewArray, editPreviewArray);	
+		
 
 	}
 

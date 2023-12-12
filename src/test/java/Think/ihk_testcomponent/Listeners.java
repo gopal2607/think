@@ -22,8 +22,6 @@ public class Listeners extends BaseTest implements ITestListener {
 	@Override
 	public void onTestStart(ITestResult result) {
 
-		
-		
 		    
 		    // If you want to use the actual method name as the test name
 		     String customTestName = result.getMethod().getMethodName();
