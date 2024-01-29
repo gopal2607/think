@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+
+	<listeners>
+		<listener class-name="Think.ihk_testcomponent.Listeners"></listener>
+	</listeners>
+
+	<test thread-count="5" name="Test">
+		<classes>
+
+			<class name="Think.ihk_test.login" />
+			<class name="Think.ihk_test.dashboard" />
+			<class name="Think.ihk_test.displayBannerTemplateList" />
+			<class name="Think.ihk_test.displayBannerCreativePreview" />
+			<class name="Think.ihk_test.displayBannerCreativeListing" />
+
+
+		</classes>
+	</test> <!--
+	Test -->
+</suite> <!--
+Suite -->
